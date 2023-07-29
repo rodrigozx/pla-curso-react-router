@@ -62,5 +62,7 @@ const routes = [];
 routes.push({ path: "/", name: "Home", exact: true });
 routes.push({ path: "/blog", name: "Blog", exact: true });
 routes.push({ path: "/profile", name: "Profile", exact: true });
+routes.push({ path: "/login", name: "Login", exact: true });
+routes.push({ path: "/logout", name: "Logout", exact: true });
 
 export default Menu;

@@ -8,12 +8,12 @@ function BlogPost() {
 
   const blogpost = blogdata?.find((post) => post.slug === slug);
 
-  const returnToBlog = () => navigate("/blog");
+  const returnToBlog = () => navigate("/blog"); //navigate(-1) // in this case is the same as navigate("/blog")
 
   return (
     <>
       <h1>{blogpost.title}</h1>
-      <button onClick={returnToBlog}>Volver a los blogs</button>
+      <button onClick={returnToBlog}>Volver a los Blogs</button>
       <p>{blogpost.content}</p>
       <p>{blogpost.author}</p>
     </>

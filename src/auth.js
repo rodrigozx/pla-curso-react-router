@@ -3,14 +3,18 @@ import { useNavigate, Navigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
+const adminList = ["KevinBacon", "Drake", "Kanye", "IceCube"];
+
 function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   const login = ({ username, password }) => {
-    setUser({ username, password });
+    if (password !== username) return "Invalid password";
+
+    const isAdmin = adminList.includes(username);
+    setUser({ username, password, isAdmin });
     navigate("/profile");
-    console.log("login", username, password);
   };
 
   const logout = () => {
@@ -23,20 +27,20 @@ function AuthProvider({ children }) {
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
-function AuthRoute({ children }) {
+function AuthRoute(props) {
   const { user } = useAuth();
   if (!user) {
     return <Navigate to="/login" />;
   }
-  return children;
+  return props.children;
 }
 
 function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
+  const auth = useContext(AuthContext);
+  if (auth === undefined) {
     throw new Error("useAuth must be used within a AuthProvider");
   }
-  return context;
+  return auth;
 }
 
 export { AuthProvider, AuthRoute, useAuth };

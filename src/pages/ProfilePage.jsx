@@ -2,14 +2,13 @@ import React from "react";
 import { useAuth } from "../auth";
 
 function ProfilePage() {
-  const { user } = useAuth();
-
-  console.log("ProfilePage.user", user);
+  const auth = useAuth();
 
   return (
     <>
-      <h1>ProfilePage</h1>
-      <p>Welcome {user.username}</p>
+      <h1>Perfil</h1>
+      <p>Welcome, {auth.user.username}</p>
+      <p>Eres Admin: {auth.user.isAdmin.toString()}</p>
     </>
   );
 }

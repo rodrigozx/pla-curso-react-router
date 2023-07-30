@@ -10,7 +10,8 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password);
+    const error = login({ username, password });
+    if (error) alert(error);
   };
 
   const onUserChange = ({ target: { value } }) => {
@@ -19,7 +20,6 @@ function LoginPage() {
 
   const onPasswordChange = ({ target: { value } }) => {
     setPassword(value);
-    console.log("password", password);
   };
 
   if (user) return <Navigate to="/profile" />;

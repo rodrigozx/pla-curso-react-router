@@ -6,7 +6,6 @@ function LogoutPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    f;
     logout();
   };
 

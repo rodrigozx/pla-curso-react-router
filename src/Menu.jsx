@@ -1,11 +1,16 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "./auth";
 
 function Menu() {
+  const auth = useAuth();
+
   return (
     <nav>
       <ul>
         {routes.map((route, index) => {
+          if (route.publicInly && auth.user) return null;
+          if (route.private && !auth.user) return null;
           return (
             <li key={index}>
               <NavLink
@@ -20,49 +25,22 @@ function Menu() {
             </li>
           );
         })}
-
-        {/*
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <Link to="/blog">Blog</Link>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li> */}
-
-        {/* 
-        <li>
-        <NavLink to="/" exact activeClassName="active">
-          Home
-        </NavLink>
-        </li>
-        <li>
-        <NavLink to="/blog" activeClassName="active">
-          Blog
-        </NavLink>
-        </li>
-        <li>
-        <NavLink to="/profile" activeClassName="active">
-          Profile
-        </NavLink> 
-        </li>
-        */}
       </ul>
     </nav>
   );
 }
 
 const routes = [];
-routes.push({ path: "/", name: "Home", exact: true });
-routes.push({ path: "/blog", name: "Blog", exact: true });
-routes.push({ path: "/profile", name: "Profile", exact: true });
-routes.push({ path: "/login", name: "Login", exact: true });
-routes.push({ path: "/logout", name: "Logout", exact: true });
+routes.push({ path: "/", name: "Home", exact: true, private: false });
+routes.push({ path: "/blog", name: "Blog", exact: true, private: false });
+routes.push({ path: "/profile", name: "Profile", exact: true, private: true });
+routes.push({
+  path: "/login",
+  name: "Login",
+  exact: true,
+  private: false,
+  publicInly: true,
+});
+routes.push({ path: "/logout", name: "Logout", exact: true, private: true });
 
 export default Menu;

@@ -4,6 +4,8 @@ import { useAuth } from "../auth";
 function ProfilePage() {
   const { user } = useAuth();
 
+  console.log("ProfilePage.user", user);
+
   return (
     <>
       <h1>ProfilePage</h1>

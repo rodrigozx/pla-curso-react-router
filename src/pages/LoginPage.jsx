@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useAuth } from "../auth";
+import { Navigate } from "react-router-dom";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -20,6 +21,8 @@ function LoginPage() {
     setPassword(value);
     console.log("password", password);
   };
+
+  if (user) return <Navigate to="/profile" />;
 
   return (
     <>
